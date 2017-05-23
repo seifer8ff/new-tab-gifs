@@ -16,7 +16,17 @@
 		<h1>Latest Gifs</h1>
 	</header>
 	<main>
-		<div id="parent-div"></div>
+		<div class="container" id="form-container">
+			<form>
+				<label for="gif-query">Keyword</label>
+				<input type="text" name="gif-query" placeholder="cat" id="gif-query">
+
+				<label for="gif-query">Number of Results</label>
+				<input type="number" name="gif-max" id="gif-max" min="1" max="5" value="5">
+				<input type="submit" >
+			</form>
+		</div>
+		<div class="container" id="gif-container"></div>
 	</main>
 
 	<!--build:js js/main.min.js -->

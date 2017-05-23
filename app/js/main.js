@@ -1,7 +1,7 @@
 
 
 
-makeRequest("GET", "http://api.giphy.com/v1/gifs/search?q=kitty&api_key=dc6zaTOxFJmzC&limit=5&sort=recent")
+makeRequest("GET", "http://api.giphy.com/v1/gifs/search?q=kitty&api_key=dc6zaTOxFJmzC&limit=20&sort=recent")
 .then(function(response) {
 	// load gifs
 	var gifs = JSON.parse(response);
@@ -15,7 +15,7 @@ makeRequest("GET", "http://api.giphy.com/v1/gifs/search?q=kitty&api_key=dc6zaTOx
 
 	    //Do your logic with the property here
 	    var img = new Image();
-		var parentDiv = document.getElementById("parent-div");
+		var parentDiv = document.getElementById("gif-container");
 
 		img.onload = function() {
 		  parentDiv.appendChild(this);

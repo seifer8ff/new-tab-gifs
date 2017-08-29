@@ -1,6 +1,6 @@
 (function() {
 	var keyword = localStorage.getItem("keyword") || "cat";
-	var giphyURL = "http://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC&limit=20&sort=recent";
+	var giphyURL = "https://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC&limit=20&sort=recent";
 	var searchForm = document.querySelector("#form-search");
 	var queryInput = searchForm.querySelector("input");
 	var cursor = searchForm.querySelector(".cursor");

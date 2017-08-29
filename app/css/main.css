@@ -7,6 +7,7 @@ html {
 img {
 	display: inline-block;
 	margin: 10px 1%;
+	width: 90%;
 }
 
 #gif-container {
@@ -22,21 +23,22 @@ img {
 }
 
 .title {
-	font-size: 3em;
+	font-size: 1.5em;
 	letter-spacing: 0.08em;
 	text-align: center;
 	position: relative;
 }
 
 #form-search input {
+	display: block;
+	margin: 20px auto;
+	text-align: center;
 	font-family: 'Fredoka One', cursive;
 	letter-spacing: 0.08em;
-	margin-left: 10px;
 	border: none;
 	border-bottom: 4px dashed white;
 	background-color: transparent;
 	font-size: inherit;
-	text-align: center;
 	-webkit-appearance: textfield;
 	color: #B9F6FF;
 	text-shadow: 4px 4px 8px grey; 
@@ -48,7 +50,7 @@ img {
 	color: #B9F6FF;
 }
 
-.cursor {
+#cursor {
 	position: relative;
 	right: 20px;
 	border-left: .09em solid white;
@@ -57,3 +59,25 @@ img {
 }
 
 @-webkit-keyframes blink-caret { 50% { border-color: transparent; } }
+
+
+
+ /* ----- MEDIA QUERIES -----  */
+@media (min-width: 640px) {
+	
+}
+
+@media (min-width: 800px) {
+	.title {
+		font-size: 3em;
+	}
+
+	#form-search input {
+		display: inline-block;
+		margin: 0 0 0 10px;
+	}
+
+	img {
+		width: auto;
+	}
+}

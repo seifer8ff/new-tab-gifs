@@ -5,7 +5,7 @@
 	var queryInput = searchForm.querySelector("input");
 	var cursor = searchForm.querySelector(".cursor");
 	var queryLengthMin = 6;
-	var queryLengthMax = 20;
+	var queryLengthMax = 18;
 
 
 

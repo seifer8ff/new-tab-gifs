@@ -1,4 +1,4 @@
-(function(xhr) {
+(function() {
 	var keyword = localStorage.getItem("keyword") || "cat";
 	var giphyURL = "http://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC&limit=20&sort=recent";
 	var searchForm = document.querySelector("#form-search");
@@ -48,7 +48,7 @@
 	
 	
 	// get gifs and add them to DOM once gifs finish loading
-	xhr.makeRequest("GET", giphyURL)
+	XHR.makeRequest("GET", giphyURL)
 	.then(function(response) {
 		// load gifs
 		var gifs = JSON.parse(response);
@@ -92,7 +92,7 @@
 		console.log("request error - status: " + err.status);
 		console.log(err);
 	});
-}(XHR))
+}());
 
 
 

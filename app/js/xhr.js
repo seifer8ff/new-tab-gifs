@@ -26,9 +26,8 @@ var XHR = (function() {
             xhr.send();
         });
     }
-    
 
     return {
         makeRequest: makeRequest
     }
-}())
+}());

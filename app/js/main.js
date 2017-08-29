@@ -3,7 +3,7 @@
 	var giphyURL = "http://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC&limit=20&sort=recent";
 	var searchForm = document.querySelector("#form-search");
 	var queryInput = searchForm.querySelector("input");
-	var cursor = searchForm.querySelector("#cursor");
+	var cursor = searchForm.querySelector(".cursor");
 	var queryLengthMin = 6;
 	var queryLengthMax = 20;
 
@@ -40,6 +40,8 @@
 		});
 		queryInput.addEventListener("blur", function(e) {
 			cursor.style.display = "initial";
+			queryInput.value = null;
+			queryInput.size = keyword.length + 4;
 		});
 	}
 	

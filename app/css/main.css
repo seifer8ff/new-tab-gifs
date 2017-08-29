@@ -4,22 +4,21 @@ html {
 	font-family: 'Fredoka One', cursive;
 }
 
+body {
+	margin: 0;
+}
+
 img {
 	display: inline-block;
 	margin: 10px 1%;
 	width: 90%;
 }
 
-#gif-container {
-	text-align: center;
-	margin-left: 5%;
-	margin-right: 5%;
-	padding: 10px;
-}
-
 .container {
 	border: 2px solid grey;
-	margin-bottom: 40px;
+	text-align: center;
+	width: 98%;
+	margin: 0 auto 40px auto;
 }
 
 .title {
@@ -29,8 +28,11 @@ img {
 	position: relative;
 }
 
-#form-search input {
+.input-block {
 	display: block;
+}
+
+#form-search input {
 	margin: 20px auto;
 	text-align: center;
 	font-family: 'Fredoka One', cursive;
@@ -44,13 +46,15 @@ img {
 	text-shadow: 4px 4px 8px grey; 
 	text-transform: uppercase;
 	font-weight: bold;
+	border-radius: 0;
+	-webkit-appearance: none;
 }
 
 #form-search input::placeholder {
 	color: #B9F6FF;
 }
 
-#cursor {
+.cursor {
 	position: relative;
 	right: 20px;
 	border-left: .09em solid white;
@@ -63,21 +67,30 @@ img {
 
 
  /* ----- MEDIA QUERIES -----  */
-@media (min-width: 640px) {
-	
-}
-
 @media (min-width: 800px) {
 	.title {
 		font-size: 3em;
 	}
 
 	#form-search input {
-		display: inline-block;
 		margin: 0 0 0 10px;
+	}
+
+	.input-block {
+		display: inline;
 	}
 
 	img {
 		width: auto;
+	}
+	
+	.container {
+		width: 800px;
+	}
+}
+
+@media (min-width: 1024px) {
+	.container {
+		width: 1024px;
 	}
 }

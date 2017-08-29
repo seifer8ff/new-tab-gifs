@@ -59,14 +59,31 @@
 				continue;
 			}
 			var gif = gifs.data[gifKey];
-			console.log(gif);
+			// console.log(gif);
 			
-			var img = new Image();
-	
-			img.onload = function() {
-			  parentDiv.appendChild(this);
-			}.bind(img)
-	
+			// create gif wrapper div and add low quality gif as bg image
+			var div = document.createElement("div");
+			div.classList.add("gif-wrapper");
+			div.style.width = gif.images.fixed_width.width + "px";
+			div.style.height = gif.images.fixed_width.height + "px";
+			div.style.backgroundImage = "url(" + gif.images.fixed_width_still.url + ")";
+
+			// add hidden img and add everything to DOM
+			var img = new Image(gif.images.fixed_width.width, gif.images.fixed_width.height);
+			img.classList.add("gif", "hidden");
+
+			div.appendChild(img);
+			parentDiv.appendChild(div);
+			
+			// must use bind because it doesn't invoke function immediately
+			// unhide img + remove bg image of wrapper div. Remove height and width styling for mobile
+			img.onload = function(parent) {
+				this.classList.remove("hidden");
+				parent.style.backgroundImage = "none";
+				parent.removeAttribute("style");
+			}.bind(img, div);
+
+			// img src must be set after onload event registered
 			img.src = gif.images.fixed_width.url;
 		}
 	})

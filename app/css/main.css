@@ -8,11 +8,21 @@ body {
 	margin: 0;
 }
 
-img {
+.gif-wrapper {
 	display: inline-block;
 	margin: 10px 1%;
 	width: 90%;
-	transition: all 0.1s ease-in-out;
+	height: auto;
+	transition: transform 0.1s ease-in-out;
+}
+
+.gif {
+	width: 100%;
+	height: auto;
+}
+
+.hidden {
+	opacity: 0;
 }
 
 .container {
@@ -81,12 +91,18 @@ img {
 		display: inline;
 	}
 
-	img {
+	.gif-wrapper {
+		height: 100%;
 		width: auto;
 	}
 
-	img:hover {
+	.gif-wrapper:hover {
 		transform: scale(1.6);
+	}
+
+	.gif {
+		height: 100%;
+		width: auto;
 	}
 	
 	.container {

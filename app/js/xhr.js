@@ -1,6 +1,6 @@
 var XHR = (function() {
 
-    var makeRequest = function(method, url) {
+    function makeRequest(method, url) {
         console.log("Making a " + method + " request to " + url);
         return new Promise(function(resolve, reject) {
             var xhr = new XMLHttpRequest();

@@ -1,0 +1,30 @@
+{
+  "name": "gif-board",
+  "version": "1.0.0",
+  "description": "The latest GIFs by keyword.",
+  "main": "app/js/main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/seifer8ff/gif-board.git"
+  },
+  "author": "Brady Mauermann-Peterson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/seifer8ff/gif-board/issues"
+  },
+  "homepage": "https://github.com/seifer8ff/gif-board#readme",
+  "devDependencies": {
+    "browser-sync": "^2.18.13",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.7.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-cssnano": "^2.1.2",
+    "gulp-if": "^2.0.2",
+    "gulp-rename": "^1.2.2",
+    "gulp-uglify": "^3.0.0",
+    "gulp-useref": "^3.1.2"
+  }
+}

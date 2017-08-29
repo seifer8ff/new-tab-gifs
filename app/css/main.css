@@ -1,22 +1,12 @@
 html { 
-	/* Background pattern from Subtle Patterns */
-	background: url(../img/hexellence.png); 
-	background-repeat: repeat-x repeat-y;
+	background-color: black;
+	color: white;
+	font-family: 'Fredoka One', cursive;
 }
 
 img {
 	display: inline-block;
 	margin: 10px 1%;
-}
-
-#form-container {
-	max-width: 60%;
-	margin-left: auto;
-	margin-right: auto;
-	padding: 10px;
-	border: none;
-	background-color: black;
-	color: white;
 }
 
 #gif-container {
@@ -27,6 +17,43 @@ img {
 }
 
 .container {
-	border: 8px dashed black;
+	border: 2px solid grey;
 	margin-bottom: 40px;
 }
+
+.title {
+	font-size: 3em;
+	letter-spacing: 0.08em;
+	text-align: center;
+	position: relative;
+}
+
+#form-search input {
+	font-family: 'Fredoka One', cursive;
+	letter-spacing: 0.08em;
+	margin-left: 10px;
+	border: none;
+	border-bottom: 4px dashed white;
+	background-color: transparent;
+	font-size: inherit;
+	text-align: center;
+	-webkit-appearance: textfield;
+	color: #B9F6FF;
+	text-shadow: 4px 4px 8px grey; 
+	text-transform: uppercase;
+	font-weight: bold;
+}
+
+#form-search input::placeholder {
+	color: #B9F6FF;
+}
+
+.cursor {
+	position: relative;
+	right: 20px;
+	border-left: .09em solid white;
+	margin-right: 10px;
+	-webkit-animation: blink-caret .5s step-end infinite alternate;
+}
+
+@-webkit-keyframes blink-caret { 50% { border-color: transparent; } }

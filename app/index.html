@@ -7,29 +7,29 @@
 
 	<title>Gif Board</title>
 
+	<link href="https://fonts.googleapis.com/css?family=Fredoka+One" rel="stylesheet">
 	<!--build:css css/styles.min.css-->
 	<link rel="stylesheet" type="text/css" href="./css/main.css">
 	<!--endbuild-->
 </head>
 <body>
 	<header>
-		<h1>Latest Gifs</h1>
+		<form id="form-search">
+			<h1 class="title" >Latest 
+				<input type="search" 
+				name="query" placeholder="CAT" size="6"
+				aria-label="Search query for gifs">
+				<span class="cursor"></span>
+				GIFs
+			</h1>
+		</form>
 	</header>
 	<main>
-		<div class="container" id="form-container">
-			<form>
-				<label for="gif-query">Keyword</label>
-				<input type="text" name="gif-query" placeholder="cat" id="gif-query">
-
-				<label for="gif-query">Number of Results</label>
-				<input type="number" name="gif-max" id="gif-max" min="1" max="5" value="5">
-				<input type="submit" >
-			</form>
-		</div>
 		<div class="container" id="gif-container"></div>
 	</main>
 
 	<!--build:js js/main.min.js -->
+	<script type="text/javascript" src="./js/xhr.js"></script>
 	<script type="text/javascript" src="./js/main.js"></script>
 	<!-- endbuild -->
 </body>

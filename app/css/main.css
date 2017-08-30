@@ -8,28 +8,12 @@ body {
 	margin: 0;
 }
 
-.gif-wrapper {
-	display: inline-block;
-	margin: 10px 1%;
-	width: 90%;
-	height: auto;
-	transition: transform 0.1s ease-in-out;
-}
-
-.gif {
-	width: 100%;
-	height: auto;
-}
-
-.hidden {
-	display: none;
-}
-
 .container {
-	border: 2px solid grey;
 	text-align: center;
-	width: 98%;
+	width: 100%;
 	margin: 0 auto 40px auto;
+	padding: 10px 0;
+	border-top: 2px solid grey;
 }
 
 .title {
@@ -75,6 +59,29 @@ body {
 
 @-webkit-keyframes blink-caret { 50% { border-color: transparent; } }
 
+.gif-wrapper {
+	display: inline-block;
+	margin: 10px 0;
+	width: 96%;
+	height: auto;
+	transition: transform 0.1s ease-in-out;
+}
+
+.gif {
+	width: 100%;
+	height: auto;
+	opacity: 1;
+	transition: opacity 0.6s ease-in-out;
+}
+
+.hidden {
+	opacity: 0;
+}
+
+.removed {
+	display: none;
+}
+
 
 
  /* ----- MEDIA QUERIES -----  */
@@ -90,10 +97,16 @@ body {
 	.input-block {
 		display: inline;
 	}
+	
+	.container {
+		width: 800px;
+		border: 2px solid grey;
+	}
 
 	.gif-wrapper {
 		height: 100%;
 		width: auto;
+		margin: 10px 10px;
 	}
 
 	.gif-wrapper:hover {
@@ -103,10 +116,6 @@ body {
 	.gif {
 		height: 100%;
 		width: auto;
-	}
-	
-	.container {
-		width: 800px;
 	}
 }
 

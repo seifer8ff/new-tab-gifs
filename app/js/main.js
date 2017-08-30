@@ -46,11 +46,11 @@
 					// set width and height to force positioning 
 					stillImg.style.width = gif.images.fixed_width.width + "px";
 					stillImg.style.height = gif.images.fixed_width.height + "px";
-					stillImg.classList.add("gif");
+					stillImg.classList.add("gif", "hidden");
 					
 					// create high quality img that loads after all low quality imgs are done
 					var gifImg = new Image(gif.images.fixed_width.width, gif.images.fixed_width.height);
-					gifImg.classList.add("gif", "hidden");
+					gifImg.classList.add("gif", "removed");
 					gifImg.dataset.src = gif.images.fixed_width.url;
 					
 					// only move on once ALL low quality imgs done loading
@@ -58,6 +58,8 @@
 					stillImg.onload = function(parent) {
 						// remove style to allow for mobile styles to take over
 						this.removeAttribute("style");
+						this.classList.remove("hidden");
+						window.getComputedStyle(this).opacity; // forces opacity transition
 						resolve(parent);
 					}.bind(stillImg, div);
 	
@@ -78,8 +80,8 @@
 
 				// swap low qual img with high qual
 				gif.onload = function(parent, stillImg) {
-					this.classList.remove("hidden");
-					stillImg.classList.add("hidden");
+					this.classList.remove("removed");
+					stillImg.classList.add("removed");
 				}.bind(gif, parent, stillImg);
 
 				// img src must be set after onload event registered

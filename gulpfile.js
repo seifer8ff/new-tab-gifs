@@ -57,7 +57,7 @@ gulp.task('watch', ['browserSync'], function() {
 gulp.task('build', function() {
   gulp.run('useref'); 
   // gulp.run('fonts'); 
-  // gulp.run('extras'); 
+  gulp.run('extras'); 
   // gulp.run('images'); 
 });
 

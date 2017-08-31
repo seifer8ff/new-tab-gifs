@@ -101,8 +101,10 @@
 		queryInput.size = keyword.length + 4;
 
 		searchForm.addEventListener("submit", function(e) {
+			e.preventDefault();
 			var newQuery = validateQuery(queryInput.value, keyword);
 			localStorage.setItem("keyword", newQuery);
+			window.location.reload();
 		});
 
 		// increase/decrease input size when typing

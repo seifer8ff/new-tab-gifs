@@ -1,6 +1,6 @@
 html { 
 	background-color: black;
-	color: white;
+	color: #edffff;
 	font-family: 'Fredoka One', cursive;
 }
 
@@ -12,7 +12,7 @@ body {
 	margin: 40px auto;
 	padding: 30px 0;
 	columns: 1;
-	border-top: 2px solid grey;
+	border-top: 2px solid #2c2c2c;
 	text-align: center;
 }
 
@@ -83,6 +83,22 @@ body {
 	display: none;
 }
 
+footer {
+	font-family: 'Courier';
+	text-align: center;
+	margin-top: 70px;
+	margin-bottom: 30px;
+	font-size: 0.8em;
+}
+
+footer p {
+	margin: 0;
+}
+
+footer a {
+	color: #B9F6FF;
+}
+
 
 
  /* ----- MEDIA QUERIES -----  */
@@ -102,7 +118,7 @@ body {
 	.container {
 		padding: 30px;
 		columns: 3;
-		border: 2px solid grey;
+		border: 2px solid #2c2c2c;
 	}
 
 	.gif:not(.removed) {
@@ -116,6 +132,10 @@ body {
 		z-index: 10;
 		transform: scale(1.6);
 	}
+
+	footer {
+		font-size: 1em;
+	}
 }
 
 @media (min-width: 1024px) {
@@ -124,7 +144,8 @@ body {
 	}
 
 	.container {
+		padding: 50px;
 		columns: 4;
-		width: 964px;
+		width: 924px;
 	}
 }

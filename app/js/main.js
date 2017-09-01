@@ -1,11 +1,6 @@
 (function() {
-	var keyword = localStorage.getItem("keyword") || "cat";
-	var giphyURL = "https://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC&limit=20&sort=recent";
-	var searchForm = document.querySelector("#form-search");
-	var queryInput = searchForm.querySelector("input");
-	var cursor = searchForm.querySelector(".cursor");
-	var queryLengthMin = 6;
-	var queryLengthMax = 18;
+	var keyword = "cat";
+	var giphyURL = "https://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC&limit=60&sort=recent";
 
 
 
@@ -92,58 +87,6 @@
 			// error somewhere in the promise chain
 			console.log(err);
 		})
-
-		addEventListeners();
-	}
-
-	function addEventListeners() {
-		queryInput.placeholder = keyword;
-		queryInput.size = keyword.length + 4;
-
-		searchForm.addEventListener("submit", function(e) {
-			e.preventDefault();
-			var newQuery = validateQuery(queryInput.value, keyword);
-			localStorage.setItem("keyword", newQuery);
-			window.location.reload();
-		});
-
-		// increase/decrease input size when typing
-		queryInput.addEventListener("keydown", function(e) {
-			if (queryInput.value.length + 4 < queryLengthMin) {
-				queryInput.size = queryLengthMin;
-				return;
-			}
-			if (queryInput.value.length + 4 > queryLengthMax) {
-				queryInput.size = queryLengthMax;
-				return;
-			}
-			queryInput.size = queryInput.value.length + 4;
-		});
-
-		// hide or display blinking cursor depending on input focus
-		queryInput.addEventListener("focus", function(e) {
-			cursor.style.display = "none";
-			queryInput.placeholder = "";
-		});
-		queryInput.addEventListener("blur", function(e) {
-			cursor.style.display = "initial";
-			queryInput.value = null;
-			queryInput.size = keyword.length + 4;
-			queryInput.placeholder = keyword;
-		});
-	}
-
-	function validateQuery(q, defaultQ) {
-		if (!q) {
-			return defaultQ;
-		}
-		if (q.length > queryLengthMax) {
-			q = q.slice(0, queryLengthMax);
-		}
-		q = q.replace(/[^a-z0-9áéíóúñü \.,_-]/gim,"");
-		q = q.trim();
-		q = q.replace(/\s+/gim,"+");
-		return q;
 	}
 }());
 

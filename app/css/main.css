@@ -3,19 +3,23 @@ html {
 	color: #edffff;
 }
 
-body {
+html, body {
+	height: 100%;
+	overflow: hidden;
 	margin: 0;
+}
+
+main {
+	margin: 1vh 1vh;
+	height: 98vh;
+	width: calc(100vw - 2vh);
+	overflow: hidden;
 }
 
 .container {
 	columns: 3;
-	margin: 1vh 1vw;
-	height: 98vh;
-	width: 98vw;
-	/* padding: 30px 30px; */
-	border: 2px solid #2c2c2c;
-	text-align: center;
-	overflow: hidden;
+	height: 130%;
+	width: 100%;
 }
 
 .gif-wrapper {
@@ -44,14 +48,17 @@ body {
 
 footer {
 	font-family: 'Courier';
-	text-align: center;
-	margin-top: 70px;
-	margin-bottom: 30px;
-	font-size: 0.8em;
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	font-size: 0.6em;
+	background-color: black;
+	border-top-right-radius: 4px;
+	z-index: 7;
 }
 
 footer p {
-	margin: 0;
+	margin: 4px 6px;
 }
 
 footer a {
@@ -75,11 +82,11 @@ footer a {
 
 	.gif:not(.removed):hover { 
 		z-index: 10;
-		transform: scale(1.6);
+		transform: scale(1.1);
 	}
 
 	footer {
-		font-size: 1em;
+		font-size: 0.8em;
 	}
 }
 

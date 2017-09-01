@@ -1,18 +1,11 @@
 (function() {
-	var keyword = "cat";
-	var giphyURL = "https://api.giphy.com/v1/gifs/search?q=" + keyword + "&api_key=dc6zaTOxFJmzC&limit=60&sort=recent";
-
-
-
+	
 	init();
 
 	
-	
-
-
 	function init() {
 		// get gifs and add them to DOM once gifs finish loading
-		XHR.makeRequest("GET", giphyURL)
+		XHR.makeRequest("GET", buildURL())
 		.catch(function(err) {
 			// error response from api
 			console.log("request error - status: " + err.status);
@@ -38,9 +31,6 @@
 					div.classList.add("gif-wrapper");
 	
 					var stillImg = new Image(gif.images.fixed_width.width, gif.images.fixed_width.height);
-					// set width and height to force positioning 
-					stillImg.style.width = gif.images.fixed_width.width + "px";
-					stillImg.style.height = gif.images.fixed_width.height + "px";
 					stillImg.classList.add("gif", "hidden");
 					
 					// create high quality img that loads after all low quality imgs are done
@@ -51,10 +41,6 @@
 					// only move on once ALL low quality imgs done loading
 					// must use bind because function is asynchronous
 					stillImg.onload = function(parent) {
-						// remove style to allow for mobile styles to take over
-						this.removeAttribute("style");
-						this.classList.remove("hidden");
-						window.getComputedStyle(this).opacity; // forces opacity transition
 						resolve(parent);
 					}.bind(stillImg, div);
 	
@@ -66,6 +52,17 @@
 					stillImg.src = gif.images.fixed_width_still.url;
 				})
 			}));
+		})
+		.then(function(elements) {
+			// once all low quality images have loaded, unhide them
+			elements.forEach(function(el) {
+				var parent = el;
+				var stillImg = el.childNodes[0];
+
+				stillImg.classList.remove("hidden");
+				window.getComputedStyle(stillImg).opacity;
+			});
+			return elements;
 		})
 		.then(function(elements) {
 			return Promise.all(elements.map(function (el) {
@@ -87,6 +84,20 @@
 			// error somewhere in the promise chain
 			console.log(err);
 		})
+	}
+
+	function buildURL() {
+		var limit;
+		// using screen.width because the browser can be resized to max
+		if (screen.width < 500 ) {
+			limit = 10;
+		} else if (screen.width < 1000) {
+			limit = 20;
+		} else {
+			limit = 30;
+		}
+
+		return "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=" + limit + "&sort=recent";
 	}
 }());
 

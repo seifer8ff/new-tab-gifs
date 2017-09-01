@@ -31,11 +31,11 @@
 					div.classList.add("gif-wrapper");
 	
 					var stillImg = new Image(gif.images.fixed_width.width, gif.images.fixed_width.height);
-					stillImg.classList.add("gif", "hidden");
+					stillImg.classList.add("still", "hidden");
 					
 					// create high quality img that loads after all low quality imgs are done
 					var gifImg = new Image(gif.images.fixed_width.width, gif.images.fixed_width.height);
-					gifImg.classList.add("gif", "removed");
+					gifImg.classList.add("gif", "hidden");
 					gifImg.dataset.src = gif.images.fixed_width.url;
 					
 					// only move on once ALL low quality imgs done loading
@@ -70,10 +70,11 @@
 				var stillImg = el.childNodes[0];
 				var gif = el.childNodes[1];
 
-				// swap low qual img with high qual
+				// swap display of still img and gif
 				gif.onload = function(parent, stillImg) {
-					this.classList.remove("removed");
-					stillImg.classList.add("removed");
+					this.classList.remove("hidden");
+					window.getComputedStyle(this).opacity;
+					stillImg.classList.add("hidden");
 				}.bind(gif, parent, stillImg);
 
 				// img src must be set after onload event registered

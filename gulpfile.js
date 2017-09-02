@@ -5,6 +5,7 @@ var gulp = require('gulp');
 var concat = require('gulp-concat');
 var path = require('path');
 var uglify = require('gulp-uglify');
+var stripDebug = require('gulp-strip-debug');
 var gulpIf = require('gulp-if');
 var useref = require('gulp-useref');
 var cssnano = require('gulp-cssnano');
@@ -17,6 +18,7 @@ gulp.task('useref', function(){
   return gulp.src('app/index.html')
   .pipe(useref())
 // strips debug and minifies only if it's a JavaScript file
+.pipe(gulpIf('*.js', stripDebug()))
 .pipe(gulpIf('*.js', uglify()))
 .pipe(gulp.dest('dist'))
 // Minifies only if it's a CSS file
@@ -24,12 +26,11 @@ gulp.task('useref', function(){
 .pipe(gulp.dest('dist'))
 });
 
-
-// copy fonts to dist
-gulp.task('fonts', function() {
-  return gulp.src('app/fonts/**/*')
-  .pipe(gulp.dest('dist/fonts'))
-})
+// copy images to dist
+gulp.task('images', function(){
+  return gulp.src('app/img/**/*.+(png|jpg|gif|svg|pdf)')
+  .pipe(gulp.dest('dist/img'))
+});
 
 // copy extras to dist
 gulp.task('extras', function() {
@@ -58,7 +59,7 @@ gulp.task('build', function() {
   gulp.run('useref'); 
   // gulp.run('fonts'); 
   gulp.run('extras'); 
-  // gulp.run('images'); 
+  gulp.run('images'); 
 });
 
 // Default Task

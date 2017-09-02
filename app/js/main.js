@@ -4,6 +4,12 @@
 
 	
 	function init() {
+		if (!navigator.onLine) {
+			document.body.style.backgroundImage = "url('img/default.gif')";
+			document.body.style.backgroundSize = "cover";
+			return;
+		}
+
 		// get gifs and add them to DOM once gifs finish loading
 		XHR.makeRequest("GET", buildURL())
 		.catch(function(err) {

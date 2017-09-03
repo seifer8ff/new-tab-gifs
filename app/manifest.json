@@ -2,7 +2,6 @@
   "manifest_version": 2,
 
   "name": "GIF Tab",
-  "default_locale": "en",
   "description": "See a collection of trending GIFs every time you open a new tab!",
   "version": "1.1",
   "icons": { "16": "icon-16.png",

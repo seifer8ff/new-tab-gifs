@@ -9,26 +9,8 @@
 			document.body.style.backgroundSize = "cover";
 			return;
 		}
-
-		// get gifs and add them to DOM once gifs finish loading
-		XHR.makeRequest("GET", buildURL())
-		.catch(function(err) {
-			// error response from api
-			console.log("request error - status: " + err.status);
-			console.log(err);
-		})
-		.then(function(response) {
-			var gifs = JSON.parse(response);
-			var gifArray = [];
-		
-			for (var gifKey in gifs.data) {
-				if (!gifs.data.hasOwnProperty(gifKey)) {
-					continue;
-				}
-				gifArray.push(gifs.data[gifKey]);
-			}
-			return gifArray;
-		})
+		// get GIFs, add to GIF stills to DOM, and swap still imgs with gifs
+		getGIFs()
 		.then(function(gifs) {
 			return Promise.all(gifs.map(function (gif) {
 				return new Promise(function(resolve, reject) {
@@ -93,7 +75,42 @@
 		})
 	}
 
-	function buildURL() {
+	function getGIFs() {
+		return new Promise(function(resolve, reject) {
+			// if gifs are in local storage + not expired, resolve
+			if (localStorage.getItem("gifObj")) {
+				gifObj = JSON.parse(localStorage.getItem("gifObj"));
+				if (!isExpired(gifObj.expires)) {
+					return resolve(gifObj.gifs);
+				}
+			} 
+			// only make an api request if gifs in localStorage are expired
+			XHR.makeRequest("GET", buildRequestURL())
+			.catch(function(err) {
+				// error response from api
+				console.log("request error - status: " + err.status);
+				console.log(err);
+			})
+			.then(function(response) {
+				var gifRes = JSON.parse(response);
+				var gifObj = {
+					gifs: [],
+					expires: new Date().getTime() + 60 * 20 * 1000
+				};
+			
+				for (var gifKey in gifRes.data) {
+					if (!gifRes.data.hasOwnProperty(gifKey)) {
+						continue;
+					}
+					gifObj.gifs.push(gifRes.data[gifKey]);
+				}
+				localStorage.setItem("gifObj", JSON.stringify(gifObj));
+				return resolve(gifObj.gifs);
+			})
+		});
+	}
+
+	function buildRequestURL() {
 		var limit;
 		// using screen.width because the browser can be resized to max
 		if (screen.width < 500 ) {
@@ -105,6 +122,15 @@
 		}
 
 		return "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=" + limit + "&sort=recent";
+	}
+
+	function isExpired(date) {
+		var now = new Date().getTime();
+		if (now >= date) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 }());
 

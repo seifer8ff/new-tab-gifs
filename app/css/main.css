@@ -17,7 +17,7 @@ main {
 }
 
 .container {
-	columns: 250px;
+	columns: 320px;
 	height: 130%;
 	width: 100%;
 }

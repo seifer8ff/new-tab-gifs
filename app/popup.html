@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>GIF Tab</title>
+
+	<!--build:css css/popup-styles.min.css-->
+	<link rel="stylesheet" type="text/css" href="./css/popup.css">
+	<!--endbuild-->
+</head>
+<body>
+	<h1>GIF Tab</h1>
+	<form>
+		<h2 class="form-header">Display Options</h2>
+		<div class="form-input">
+			<input type="radio" id="multi" name="display" value="multi" checked="true">
+			<label for="multi">Trending GIFs</label>
+		</div>
+		<div class="form-input">
+			<input type="radio" id="single" name="display" value="single">
+			<label for="single">Single GIF with keyword: </label>
+		</div>
+		<div class="form-input">
+			<input type="text" placeholder="cat" id="keyword" disabled>
+		</div>
+	</form>
+
+	<!--build:js js/popup.min.js -->
+	<script type="text/javascript" src="./js/popup.js"></script>
+	<!-- endbuild -->
+</body>
+</html>

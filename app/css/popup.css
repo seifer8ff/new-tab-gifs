@@ -1,0 +1,33 @@
+body {
+	width: 240px;
+}
+
+h1 {
+	text-align: center;
+	padding: 8px;
+	margin: 0px 0px 2px 0px;
+	letter-spacing: 0.1em;
+	background-color: #e8e8e8;
+	border-bottom: 1px solid grey;
+}
+
+.form-header {
+	margin: 8px 0px 8px 0px;
+}
+
+.form-input {
+	margin-left: 4px;
+	margin-bottom: 4px;
+}
+
+.form-input label {
+	margin-left: 14px;
+}
+
+#keyword {
+	width: calc(100% - 12px);
+}
+
+#keyword[disabled] {
+	background-color: rgba(0, 0 , 0, 0.1);
+}

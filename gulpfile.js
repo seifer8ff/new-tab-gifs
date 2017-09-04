@@ -26,6 +26,18 @@ gulp.task('useref', function(){
 .pipe(gulp.dest('dist'))
 });
 
+gulp.task('popup-useref', function(){
+  return gulp.src('app/popup.html')
+  .pipe(useref())
+// strips debug and minifies only if it's a JavaScript file
+.pipe(gulpIf('*.js', stripDebug()))
+.pipe(gulpIf('*.js', uglify()))
+.pipe(gulp.dest('dist'))
+// Minifies only if it's a CSS file
+.pipe(gulpIf('*.css', cssnano()))
+.pipe(gulp.dest('dist'))
+});
+
 // copy images to dist
 gulp.task('images', function(){
   return gulp.src('app/img/**/*.+(png|jpg|gif|svg|pdf)')
@@ -57,6 +69,7 @@ gulp.task('watch', ['browserSync'], function() {
 // build task
 gulp.task('build', function() {
   gulp.run('useref'); 
+  gulp.run('popup-useref'); 
   // gulp.run('fonts'); 
   gulp.run('extras'); 
   gulp.run('images'); 

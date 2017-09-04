@@ -55,11 +55,11 @@ main {
 
 .gif-wrapper:hover .gif { 
 	z-index: 11;
-	transform: scale(1.1);
+	transform: scale(1.07);
 }
 .gif-wrapper:hover .still { 
 	z-index: 10;
-	transform: scale(1.1);
+	transform: scale(1.07);
 }
 
 .hidden {
@@ -95,4 +95,17 @@ footer a {
 	right: 0;
 	background-color: rgba(0, 0, 0, 0.1);
 	border-top-left-radius: 4px;
+}
+
+
+@media (min-width: 2000px) {
+	.container {
+		columns: 400px;
+	}
+}
+
+@media (min-width: 4000px) {
+	.container {
+		columns: 440px;
+	}
 }

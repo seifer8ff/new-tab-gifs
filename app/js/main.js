@@ -2,10 +2,21 @@
 
 	var settings = {
 		gifContainer: document.getElementById("gif-container"),
-		gifFragment: document.createDocumentFragment(),
-		limit: 30
+		multi: {
+			gifFragment: document.createDocumentFragment(),
+			limit: getGIFLimit(screen.width),
+			trendingURL: "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=30&rating=g&sort=recent"
+		},
+		single: {
+			singleDisplay: localStorage.getItem("single"),
+			keyword: localStorage.getItem("keyword") || "cat",
+			singleURL: "https://api.giphy.com/v1/gifs/random?q=cat&api_key=dc6zaTOxFJmzC&rating=g"
+		}
 	} 
+	settings.multi.trendingURL = buildTrendingURL();
+	settings.single.singleURL = "https://api.giphy.com/v1/gifs/random?tag=" + settings.single.keyword + "&api_key=dc6zaTOxFJmzC&rating=g";
 	
+
 	init();
 
 	
@@ -15,13 +26,39 @@
 			document.body.style.backgroundSize = "cover";
 			return;
 		}
+
+		if (settings.single.singleDisplay) {
+			return XHR.makeRequest("GET", settings.single.singleURL)
+			.catch(function(err) {
+				// error response from api
+				console.log("request error - status: " + err.status);
+				console.log(err);
+			})
+			.then(function(response) {
+				return JSON.parse(response);
+			})
+			.catch(function(err) {
+				console.log("error parsing response");
+			})
+			.then(function(response) {
+				console.log(response.data);
+				console.log(response.data.image_frames);
+				if (response.data.image_frames > 100) {
+					document.body.style.backgroundImage = "url(" + response.data.fixed_width_downsampled_url + ")";
+				} else {
+					document.body.style.backgroundImage = "url(" + response.data.image_original_url + ")";
+				}
+				document.body.style.backgroundSize = "cover";
+			})
+		}
+
 		// get GIFs, add to GIF stills to DOM, and swap still imgs with gifs
-		getGIFs()
+		getTrendingGIFs()
 		.then(function(gifs) {
 			return Promise.all(gifs.map(addGIFToFragment));
 		})
 		.then(function(elements) {
-			settings.gifContainer.appendChild(settings.gifFragment);
+			settings.gifContainer.appendChild(settings.multi.gifFragment);
 			return elements;
 		})
 		.then(function(elements) {
@@ -58,7 +95,7 @@
 		})
 	}
 
-	function getGIFs() {
+	function getTrendingGIFs() {
 		return new Promise(function(resolve, reject) {
 			// if gifs are in local storage + not expired, resolve
 			if (localStorage.getItem("gifObj")) {
@@ -69,7 +106,7 @@
 			} 
 
 			// only make an api request if gifs in localStorage are expired
-			XHR.makeRequest("GET", buildRequestURL())
+			XHR.makeRequest("GET", settings.multi.trendingURL)
 			.catch(function(err) {
 				// error response from api
 				console.log("request error - status: " + err.status);
@@ -126,23 +163,24 @@
 			// set src to trigger the onload function above (which resolved promise)
 			stillImg.src = gif.images.fixed_width_small_still.url;
 
-			settings.gifFragment.appendChild(div);
+			settings.multi.gifFragment.appendChild(div);
 			div.appendChild(stillImg);
 			div.appendChild(gifImg);
 		})
 	}
 
-	function buildRequestURL() {
-		// using screen.width because the browser can be resized to max
-		if (screen.width < 500 ) {
-			settings.limit = 10;
-		} else if (screen.width < 1000) {
-			settings.limit = 20;
+	function getGIFLimit(width) {
+		if (width < 500 ) {
+			return 10;
+		} else if (width < 1000) {
+			return 20;
 		} else {
-			settings.limit = 30;
+			return 30;
 		}
+	}
 
-		return "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=" + settings.limit + "&rating=g&sort=recent";
+	function buildTrendingURL() {
+		return "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=" + settings.multi.limit + "&rating=g&sort=recent";
 	}
 
 	function isExpired(date) {

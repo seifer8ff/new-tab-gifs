@@ -41,8 +41,11 @@
 		});
 		// save the entered keyword upon popup close
 		window.addEventListener("unload", function(e) {
-			if (!settings.displayForm.keyword.disabled && settings.displayForm.keyword.value.length > 0) {
+			if (!settings.displayForm.keyword.disabled && 
+				settings.displayForm.keyword.value !== localStorage.getItem("keyword") &&
+				settings.displayForm.keyword.value.length > 0) {
 				localStorage.setItem("keyword", settings.displayForm.keyword.value);
+				localStorage.removeItem("randGIFs");
 			}
 		})
 	}

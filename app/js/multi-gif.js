@@ -55,10 +55,11 @@ var MultiGIF = (function() {
 	function getTrendingGIFs() {
 		return new Promise(function(resolve, reject) {
 			// if gifs are in local storage + not expired, resolve
-			if (localStorage.getItem("gifObj")) {
-				gifObj = JSON.parse(localStorage.getItem("gifObj"));
-				if (!isExpired(gifObj.expires)) {
-					return resolve(gifObj.gifs);
+			if (localStorage.getItem("trendingGIFs")) {
+				if (!Store.isExpired("trendingGIFs")) {
+					return resolve(Store.getLocal("trendingGIFs"));
+				} else {
+					localStorage.removeItem("trendingGIFs");
 				}
 			} 
 
@@ -76,24 +77,11 @@ var MultiGIF = (function() {
 				console.log("error parsing response");
 			})
 			.then(function(response) {
-				console.log(response);
-				var gifArray = [];
-			
-				for (var gifKey in response.data) {
-					if (!response.data.hasOwnProperty(gifKey)) {
-						continue;
-					}
-					gifArray.push(response.data[gifKey]);
-				}
-				return gifArray;
+				return Array.from(response.data);
 			})
-			.then(function(gifArray) {
-				var gifObj = {
-					gifs: gifArray,
-					expires: new Date().getTime() + 60 * 20 * 1000
-				}
-				localStorage.setItem("gifObj", JSON.stringify(gifObj));
-				return resolve(gifObj.gifs);
+			.then(function(gifs) {
+				Store.setLocal("trendingGIFs", gifs, 60 * 20 * 1000);
+				return resolve(gifs);
 			})
 		});
 	}
@@ -133,15 +121,6 @@ var MultiGIF = (function() {
 			return 20;
 		} else {
 			return 30;
-		}
-	}
-
-	function isExpired(date) {
-		var now = new Date().getTime();
-		if (now >= date) {
-			return true;
-		} else {
-			return false;
 		}
 	}
 

@@ -41,9 +41,12 @@
 				console.log("error parsing response");
 			})
 			.then(function(response) {
+				var size = response.data.image_width * response.data.image_height * response.data.image_frames;
 				console.log(response.data);
-				console.log(response.data.image_frames);
-				if (response.data.image_frames > 100) {
+				console.log("gif frames= " + response.data.image_frames);
+				console.log("gif total size= " + size);
+				// downsample large gifs to speed up load time
+				if (size > 10000000) {
 					document.body.style.backgroundImage = "url(" + response.data.fixed_width_downsampled_url + ")";
 				} else {
 					document.body.style.backgroundImage = "url(" + response.data.image_original_url + ")";

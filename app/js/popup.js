@@ -39,6 +39,17 @@
 			localStorage.removeItem("single");
 			settings.displayForm.keyword.disabled = true;
 		});
+		// save the entered keyword upon submit of form
+		settings.displayForm.form.addEventListener("submit", function(e) {
+			e.preventDefault();
+			if (!settings.displayForm.keyword.disabled && 
+				settings.displayForm.keyword.value !== localStorage.getItem("keyword") &&
+				settings.displayForm.keyword.value.length > 0) {
+					localStorage.setItem("keyword", settings.displayForm.keyword.value);
+					localStorage.removeItem("randGIFs");
+					window.close();
+			}
+		});
 		// save the entered keyword upon popup close
 		window.addEventListener("unload", function(e) {
 			if (!settings.displayForm.keyword.disabled && 

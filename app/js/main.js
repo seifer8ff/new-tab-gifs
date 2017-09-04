@@ -22,7 +22,7 @@
 	
 	function init() {
 		if (!navigator.onLine) {
-			document.body.style.backgroundImage = "url('img/default.gif')";
+			document.body.style.background = "url('img/default.gif') no-repeat center center fixed";
 			document.body.style.backgroundSize = "cover";
 			return;
 		}
@@ -47,9 +47,9 @@
 				console.log("gif total size= " + size);
 				// downsample large gifs to speed up load time
 				if (size > 10000000) {
-					document.body.style.backgroundImage = "url(" + response.data.fixed_width_downsampled_url + ")";
+					document.body.style.background = "url(" + response.data.fixed_width_downsampled_url + ") no-repeat center center fixed";
 				} else {
-					document.body.style.backgroundImage = "url(" + response.data.image_original_url + ")";
+					document.body.style.background = "url(" + response.data.image_original_url + ") no-repeat center center fixed";
 				}
 				document.body.style.backgroundSize = "cover";
 			})

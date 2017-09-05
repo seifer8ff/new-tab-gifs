@@ -2,7 +2,7 @@
 
 	var settings = {
 		singleGIFView: localStorage.getItem("single"),
-		keyword: localStorage.getItem("keyword") || 'cat',
+		keyword: Store.validate(localStorage.getItem("keyword") || 'cat'),
 		displayForm: {
 			form: document.querySelector("form"),
 			single: document.querySelector("#single"),

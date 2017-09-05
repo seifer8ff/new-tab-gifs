@@ -21,12 +21,17 @@ var Store =  (function() {
 	function getLocal(key) {
 		return JSON.parse(localStorage.getItem(key)).data;
 	}
+
+	function validateInput(str) {
+		return str.trim().replace(/\s\s+/g,"+");
+	}
 	
 
 	return {
 		setLocal: setLocal,
 		getLocal: getLocal,
-		isExpired: isExpired
+		isExpired: isExpired,
+		validate: validateInput
 	}
 }());
 

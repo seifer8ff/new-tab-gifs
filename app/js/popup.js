@@ -30,7 +30,7 @@
 		// if changing to single display, add that to local storage and set state of multi and keyword input
 		settings.displayForm.single.addEventListener("click", e => {
 			localStorage.setItem("single", "true");
-			localStorage.setItem("keyword", settings.keyword);
+			localStorage.setItem("keyword", Store.validate(settings.keyword));
 			settings.displayForm.keyword.disabled = false;
 			settings.displayForm.keyword.value = settings.keyword;
 		});
@@ -45,7 +45,7 @@
 			if (!settings.displayForm.keyword.disabled && 
 				settings.displayForm.keyword.value !== localStorage.getItem("keyword") &&
 				settings.displayForm.keyword.value.length > 0) {
-					localStorage.setItem("keyword", settings.displayForm.keyword.value);
+					localStorage.setItem("keyword", Store.validate(settings.displayForm.keyword.value));
 					localStorage.removeItem("randGIFs");
 					window.close();
 			}
@@ -55,7 +55,7 @@
 			if (!settings.displayForm.keyword.disabled && 
 				settings.displayForm.keyword.value !== localStorage.getItem("keyword") &&
 				settings.displayForm.keyword.value.length > 0) {
-				localStorage.setItem("keyword", settings.displayForm.keyword.value);
+				localStorage.setItem("keyword", Store.validate(settings.displayForm.keyword.value));
 				localStorage.removeItem("randGIFs");
 			}
 		})

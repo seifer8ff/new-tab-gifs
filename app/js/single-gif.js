@@ -1,7 +1,7 @@
 var SingleGIF =  (function() {
 
 	var settings = {
-		keyword: localStorage.getItem("keyword") || "cat",
+		keyword: Store.validate(localStorage.getItem("keyword") || "cat"),
 		storedGIFs: localStorage.getItem("randGIFs"),
 		URL: "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=cat&limit=50&offset=0&rating=G&lang=en"
 	} 

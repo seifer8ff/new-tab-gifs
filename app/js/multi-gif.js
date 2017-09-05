@@ -11,14 +11,14 @@ var MultiGIF = (function() {
 	function init() {
 		// get GIFs, add to GIF stills to DOM, and swap still imgs with gifs
 		getTrendingGIFs()
-		.then(function(gifs) {
+		.then(gifs => {
 			return Promise.all(gifs.map(addGIFToFragment));
 		})
-		.then(function(elements) {
+		.then(elements => {
 			settings.gifContainer.appendChild(settings.gifFragment);
 			return elements;
 		})
-		.then(function(elements) {
+		.then(elements => {
 			// once all low quality images have loaded, unhide them
 			elements.forEach(function(el) {
 				var parent = el;
@@ -29,8 +29,8 @@ var MultiGIF = (function() {
 			});
 			return elements;
 		})
-		.then(function(elements) {
-			return Promise.all(elements.map(function (el) {
+		.then(elements => {
+			return Promise.all(elements.map(el => {
 				var parent = el;
 				var stillImg = el.childNodes[0];
 				var gif = el.childNodes[1];
@@ -46,7 +46,7 @@ var MultiGIF = (function() {
 				gif.src = gif.dataset.src;
 			}));
 		})
-		.catch(function(err) {
+		.catch(err => {
 			// error somewhere in the promise chain
 			console.log(err);
 		})
@@ -65,21 +65,21 @@ var MultiGIF = (function() {
 
 			// only make an api request if gifs in localStorage are expired
 			XHR.makeRequest("GET", settings.URL)
-			.catch(function(err) {
+			.catch(err => {
 				// error response from api
 				console.log("request error - status: " + err.status);
 				console.log(err);
 			})
-			.then(function(response) {
+			.then(response => {
 				return JSON.parse(response);
 			})
-			.catch(function(err) {
+			.catch(err => {
 				console.log("error parsing response");
 			})
-			.then(function(response) {
+			.then(response => {
 				return Array.from(response.data);
 			})
-			.then(function(gifs) {
+			.then(gifs => {
 				Store.setLocal("trendingGIFs", gifs, 60 * 20 * 1000);
 				return resolve(gifs);
 			})

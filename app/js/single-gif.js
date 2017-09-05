@@ -19,26 +19,26 @@ var SingleGIF =  (function() {
 		} 
 
 		XHR.makeRequest("GET", settings.URL)
-		.catch(function(err) {
+		.catch(err => {
 			// error response from api
 			console.log("request error - status: " + err.status);
 			console.log(err);
 		})
-		.then(function(response) {
+		.then(response => {
 			return JSON.parse(response);
 		})
-		.catch(function(err) {
+		.catch(err => {
 			console.log("error parsing response");
 		})
-		.then(function(response) {
+		.then(response => {
 			console.log(response);
 			return Array.from(response.data);
 		})
-		.then(function(gifs) {
+		.then(gifs => {
 			Store.setLocal("randGIFs", gifs, 60 * 60 * 1000);
 			return gifs[Math.floor(Math.random() * gifs.length)];
 		})
-		.then(function(gif) {
+		.then(gif => {
 			return addGIFToBody(gif);
 		})
 	}

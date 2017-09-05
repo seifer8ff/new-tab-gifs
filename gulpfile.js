@@ -4,7 +4,7 @@ var gulp = require('gulp');
 // Include Our Plugins
 var concat = require('gulp-concat');
 var path = require('path');
-var uglify = require('gulp-uglify');
+var uglify = require('gulp-uglify-es').default;
 var stripDebug = require('gulp-strip-debug');
 var gulpIf = require('gulp-if');
 var useref = require('gulp-useref');

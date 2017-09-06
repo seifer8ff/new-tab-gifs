@@ -44,17 +44,26 @@ var SingleGIF =  (function() {
 	}
 
 	function addGIFToBody(gif) {
+		var url;
+		var copyGIF = new Image();
 		console.log(gif);
 		console.log("gif size= " + gif.images.original.size);
 		// downsample large gifs to speed up load time
 		if (gif.images.original.size > 1000000 && gif.images.downsized_small.url) {
-			document.body.style.background = "url(" + gif.images.downsized_small.url + ") no-repeat center center fixed";
+			url = gif.images.downsized_small.url;
 		} else if (gif.images.original.size > 1000000 && gif.images.fixed_height_downsampled.url) {
-			document.body.style.background = "url(" + gif.images.fixed_height_downsampled.url + ") no-repeat center center fixed";
+			url = gif.images.fixed_height_downsampled.url;
 		} else {
-			document.body.style.background = "url(" + gif.images.original.url + ") no-repeat center center fixed";
+			url = gif.images.original.url;
 		}
+		// add GIF as background image for proper resizing/zooming
+		document.body.style.background = "url(" + url + ") no-repeat center center fixed";
 		document.body.style.backgroundSize = "cover";
+
+		// add hidden gif as overlay to allow copying
+		copyGIF.src = url;
+		copyGIF.classList.add("copy", "hidden");
+		document.body.insertBefore(copyGIF, document.body.firstChild);
 	}
 	
 

@@ -1,7 +1,10 @@
 (function() {
 
 	var settings = {
-		singleDisplay: localStorage.getItem("single")
+		singleDisplay: localStorage.getItem("single"),
+		keyword: localStorage.getItem("keyword"),
+		currentKeyword: localStorage.getItem("currentKeyword"),
+		URL
 	} 
 	
 
@@ -15,10 +18,16 @@
 			return;
 		}
 
-		if (settings.singleDisplay) {
-			SingleGIF.init();
+		if (settings.keyword) {
+			settings.URL = "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=" + settings.currentKeyword;
 		} else {
-			MultiGIF.init();
+			settings.URL = "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC";
+		}
+
+		if (settings.singleDisplay) {
+			SingleGIF.init(settings.URL);
+		} else {
+			MultiGIF.init(settings.URL);
 		}
 	}
 }());

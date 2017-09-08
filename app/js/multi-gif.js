@@ -4,11 +4,11 @@ var MultiGIF = (function() {
 		gifContainer: document.getElementById("gif-container"),
 		gifFragment: document.createDocumentFragment(),
 		limit: getGIFLimit(screen.width),
-		URL: "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=30&rating=g&sort=recent"
+		URL
 	} 
-	settings.URL = "https://api.giphy.com/v1/gifs/trending?api_key=dc6zaTOxFJmzC&limit=" + settings.limit + "&rating=g&sort=recent";
 	
-	function init() {
+	function init(URL) {
+		settings.URL = URL + "&limit=" + settings.limit + "&rating=g&sort=recent";
 		// get GIFs, add to GIF stills to DOM, and swap still imgs with gifs
 		getTrendingGIFs()
 		.then(gifs => {
@@ -55,11 +55,11 @@ var MultiGIF = (function() {
 	function getTrendingGIFs() {
 		return new Promise(function(resolve, reject) {
 			// if gifs are in local storage + not expired, resolve
-			if (localStorage.getItem("trendingGIFs")) {
-				if (!Store.isExpired("trendingGIFs")) {
-					return resolve(Store.getLocal("trendingGIFs"));
+			if (localStorage.getItem("GIFs")) {
+				if (!Store.isExpired("GIFs")) {
+					return resolve(Store.getLocal("GIFs"));
 				} else {
-					localStorage.removeItem("trendingGIFs");
+					localStorage.removeItem("GIFs");
 				}
 			} 
 
@@ -80,7 +80,7 @@ var MultiGIF = (function() {
 				return Array.from(response.data);
 			})
 			.then(gifs => {
-				Store.setLocal("trendingGIFs", gifs, 60 * 20 * 1000);
+				Store.setLocal("GIFs", gifs, 60 * 20 * 1000);
 				return resolve(gifs);
 			})
 		});

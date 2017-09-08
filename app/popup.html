@@ -13,19 +13,23 @@
 </head>
 <body>
 	<h1>GIF Tab</h1>
+	<hr>
 	<form>
-		<h2 class="form-header">Display Options</h2>
-		<div class="form-input">
+		<h2 class="form-title">GIF Display:</h2>
+		<div class="radio-group">
 			<input type="radio" id="multi" name="display" value="multi" checked="true">
-			<label for="multi">Trending GIFs</label>
-		</div>
-		<div class="form-input">
+			<label for="multi">Mult-Grid</label>
 			<input type="radio" id="single" name="display" value="single">
-			<label for="single">Single GIF with keyword: </label>
+			<label for="single">Single</label>
 		</div>
-		<div class="form-input">
-			<input type="text" placeholder="cat" id="keyword" disabled>
+		<h2 class="form-title">Keyword:</h2>
+		<div class="radio-group">
+			<input type="radio" id="trending" name="keyword" value="single" checked="true">
+			<label for="trending">Trending</label>
+			<input type="radio" id="keyword" name="keyword" value="single">
+			<label for="keyword">Keyword</label>
 		</div>
+		<input type="text" placeholder="cat" class="hidden" id="input-keyword" disabled>
 	</form>
 
 	<!--build:js js/popup.min.js -->

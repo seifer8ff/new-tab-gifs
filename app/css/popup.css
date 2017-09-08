@@ -1,33 +1,68 @@
 body {
 	width: 240px;
+	padding-bottom: 10px;
 }
 
 h1 {
 	text-align: center;
-	padding: 8px;
-	margin: 0px 0px 2px 0px;
+	padding: 2px;
+	margin: 0px 0px 0px 0px;
 	letter-spacing: 0.1em;
-	background-color: #e8e8e8;
-	border-bottom: 1px solid grey;
 }
 
-.form-header {
-	margin: 8px 0px 8px 0px;
+hr {
+
 }
 
-.form-input {
-	margin-left: 4px;
-	margin-bottom: 4px;
+.form-title {
+	margin: 20px 0px 12px 0px;
 }
 
-.form-input label {
-	margin-left: 14px;
+.radio-group {
+	display: flex;
+	width: 80%;
+	margin-left: 10%;
+	border: solid 3px grey;
+	border-radius: 6px;
 }
 
-#keyword {
-	width: calc(100% - 12px);
+.radio-group.input-text {
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
 }
 
-#keyword[disabled] {
-	background-color: rgba(0, 0 , 0, 0.1);
+input[type=radio] {
+	position: absolute;
+	visibility: hidden;
+	display: none;
+}
+
+label {
+	flex: 1;
+	text-align: center;
+	padding: 2px 0;
+}
+
+label:not(:first-of-type) {
+	border-left: 3px solid grey;
+}
+
+input[type=radio]:checked + label{
+	color: white;
+	background-color: grey;
+  }
+
+#input-keyword {
+	width: 80%;
+	margin-left: 10%;
+	padding: 2px 0;
+	border: 3px solid grey;
+	border-top: none;
+	border-radius: 6px;
+	border-top-right-radius: 0;
+	border-top-left-radius: 0;
+}
+
+.hidden {
+	display: none;
 }

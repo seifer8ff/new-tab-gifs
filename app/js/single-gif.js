@@ -1,20 +1,19 @@
 var SingleGIF =  (function() {
 
 	var settings = {
-		keyword: Store.validate(localStorage.getItem("keyword") || "cat"),
-		storedGIFs: localStorage.getItem("randGIFs"),
-		URL: "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=cat&limit=50&offset=0&rating=G&lang=en"
+		URL
 	} 
-	settings.URL = "https://api.giphy.com/v1/gifs/search?api_key=dc6zaTOxFJmzC&q=" + settings.keyword + "&limit=50&offset=0&rating=G&lang=en";
 	
-	function init() {
-		if (localStorage.getItem("randGIFs")) {
-			if (!Store.isExpired("randGIFs")) {
-				var gifs = Store.getLocal("randGIFs");
+	function init(URL) {
+		settings.URL = URL + "&limit=50&offset=0&rating=G&lang=en";
+
+		if (localStorage.getItem("GIFs")) {
+			if (!Store.isExpired("GIFs")) {
+				var gifs = Store.getLocal("GIFs");
 				var randGIF = gifs[Math.floor(Math.random() * gifs.length)];
 				return addGIFToBody(randGIF);
 			} else {
-				localStorage.removeItem("randGIFs");
+				localStorage.removeItem("GIFs");
 			}
 		} 
 
@@ -35,7 +34,7 @@ var SingleGIF =  (function() {
 			return Array.from(response.data);
 		})
 		.then(gifs => {
-			Store.setLocal("randGIFs", gifs, 60 * 60 * 1000);
+			Store.setLocal("GIFs", gifs, 60 * 60 * 1000);
 			return gifs[Math.floor(Math.random() * gifs.length)];
 		})
 		.then(gif => {

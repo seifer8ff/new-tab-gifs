@@ -11,19 +11,23 @@ h1 {
 }
 
 hr {
-
+	opacity: 0.3;
 }
 
 .form-title {
 	margin: 20px 0px 12px 0px;
+	font-size: 1.3em;
 }
 
 .radio-group {
+	box-sizing: border-box;
 	display: flex;
-	width: 80%;
+	width: 90%;
 	margin-left: 10%;
-	border: solid 3px grey;
+	border: solid 3px #333333;
 	border-radius: 6px;
+	font-size: 1.05em;
+	box-shadow: 0px 2px 3px 0px #888888;
 }
 
 .radio-group.input-text {
@@ -44,23 +48,35 @@ label {
 }
 
 label:not(:first-of-type) {
-	border-left: 3px solid grey;
+	border-left: 3px solid #333333;
 }
 
 input[type=radio]:checked + label{
 	color: white;
-	background-color: grey;
-  }
+	background-color: #333333;
+}
 
-#input-keyword {
-	width: 80%;
+label:hover {
+	background-color: #e8e8e8;
+}
+
+input[type=text] {
+	box-sizing: border-box;
+	width: 90%;
 	margin-left: 10%;
-	padding: 2px 0;
-	border: 3px solid grey;
+	padding: 2px 0 2px 8px;
+	border: 3px solid #333333;
 	border-top: none;
 	border-radius: 6px;
 	border-top-right-radius: 0;
 	border-top-left-radius: 0;
+	box-shadow: 0px 2px 3px 0px #888888;
+	transition: box-shadow 0.2s ease-in-out;
+}
+
+input[type=text]:focus {
+	outline: 0;
+	box-shadow: 0px 4px 6px 1px #888888;
 }
 
 .hidden {

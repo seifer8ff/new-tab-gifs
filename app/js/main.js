@@ -7,6 +7,7 @@
 	} 
 	
 
+	reset();
 	init();
 
 	
@@ -29,6 +30,12 @@
 			SingleGIF.init(url);
 		} else {
 			MultiGIF.init(url);
+		}
+	}
+
+	function reset() {
+		if (localStorage.getItem("randGIFs") || localStorage.getItem("trendingGIFs")) {
+			localStorage.clear();
 		}
 	}
 }());

@@ -4,13 +4,17 @@ var MultiGIF = (function() {
 		gifContainer: document.getElementById("gif-container"),
 		gifFragment: document.createDocumentFragment(),
 		limit: getGIFLimit(screen.width),
-		URL
+		url: ""
 	} 
 	
-	function init(URL) {
-		settings.URL = URL + "&limit=" + settings.limit + "&rating=g&sort=recent";
+	function init(url) {
+		settings.url = url;
+
 		// get GIFs, add to GIF stills to DOM, and swap still imgs with gifs
 		getTrendingGIFs()
+		.then(gifs => {
+			return shuffle(gifs).slice(0, settings.limit);
+		})
 		.then(gifs => {
 			return Promise.all(gifs.map(addGIFToFragment));
 		})
@@ -64,7 +68,7 @@ var MultiGIF = (function() {
 			} 
 
 			// only make an api request if gifs in localStorage are expired
-			XHR.makeRequest("GET", settings.URL)
+			XHR.makeRequest("GET", settings.url)
 			.catch(err => {
 				// error response from api
 				console.log("request error - status: " + err.status);
@@ -123,6 +127,16 @@ var MultiGIF = (function() {
 			return 30;
 		}
 	}
+
+	function shuffle(array) {
+		for (var i = array.length - 1; i > 0; i -= 1) {
+		  var j = Math.floor(Math.random() * (i + 1))
+		  var temp = array[i]
+		  array[i] = array[j]
+		  array[j] = temp
+		}
+		return array;
+	  }
 
 	return {
 		init: init

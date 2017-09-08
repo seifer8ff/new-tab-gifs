@@ -1,11 +1,11 @@
 var SingleGIF =  (function() {
 
 	var settings = {
-		URL
+		url: ""
 	} 
 	
-	function init(URL) {
-		settings.URL = URL + "&limit=50&offset=0&rating=G&lang=en";
+	function init(url) {
+		settings.url = url;
 
 		if (localStorage.getItem("GIFs")) {
 			if (!Store.isExpired("GIFs")) {
@@ -17,7 +17,7 @@ var SingleGIF =  (function() {
 			}
 		} 
 
-		XHR.makeRequest("GET", settings.URL)
+		XHR.makeRequest("GET", settings.url)
 		.catch(err => {
 			// error response from api
 			console.log("request error - status: " + err.status);

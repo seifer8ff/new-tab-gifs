@@ -48,11 +48,28 @@ var SingleGIF =  (function() {
 		console.log(gif);
 		console.log("gif size= " + gif.images.original.size);
 		// downsample large gifs to speed up load time
-		if (gif.images.original.size > 1000000 && gif.images.downsized_small.url) {
-			url = gif.images.downsized_small.url;
-		} else if (gif.images.original.size > 1000000 && gif.images.fixed_height_downsampled.url) {
-			url = gif.images.fixed_height_downsampled.url;
+		if (gif.images.original.size > 1000000) {
+			if (gif.images.downsized.url && gif.images.downsized.size < 1000000) {
+				console.log('serving downsized');
+				url = gif.images.downsized.url;
+			} else if (gif.images.downsized_small.url && gif.images.downsized_small.size < 1000000) {
+				console.log('serving downsized_small');
+				url = gif.images.downsized_small.url;
+			} else if (gif.images.fixed_width.url && gif.images.fixed_width.size < 1000000) {
+				console.log('serving fixed_width');
+				url = gif.images.fixed_width.url;
+			} else if (gif.images.fixed_height.url && gif.images.fixed_height.size < 1000000) {
+				console.log('serving fixed_height');
+				url = gif.images.fixed_height.url;
+			} else if (gif.images.fixed_height_small.url && gif.images.fixed_height_small.size < 1000000) {
+				console.log('serving fixed_height_small');
+				url = gif.images.fixed_height_small.url;
+			} else if (gif.images.fixed_height_downsampled.url) {
+				console.log('serving fixed_height_downsampled');
+				url = gif.images.fixed_height_downsampled.url;
+			}
 		} else {
+			console.log('serving original');
 			url = gif.images.original.url;
 		}
 		// add GIF as background image for proper resizing/zooming

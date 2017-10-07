@@ -11,7 +11,7 @@ var MultiGIF = (function() {
 		settings.url = url;
 
 		// get GIFs, add to GIF stills to DOM, and swap still imgs with gifs
-		getTrendingGIFs()
+		getLocalGIFs()
 		.then(gifs => {
 			return shuffle(gifs).slice(0, settings.limit);
 		})
@@ -56,18 +56,27 @@ var MultiGIF = (function() {
 		})
 	}
 
-	function getTrendingGIFs() {
+	// get cached GIFs
+	function getLocalGIFs() {
 		return new Promise(function(resolve, reject) {
-			// if gifs are in local storage + not expired, resolve
 			if (localStorage.getItem("GIFs")) {
 				if (!Store.isExpired("GIFs")) {
 					return resolve(Store.getLocal("GIFs"));
 				} else {
-					localStorage.removeItem("GIFs");
+					getNewGIFs();
+					return resolve(Store.getLocal("GIFs"));
 				}
 			} 
 
 			// only make an api request if gifs in localStorage are expired
+			return resolve(getNewGIFs());
+		});
+	}
+
+	// request latest GIFs from API and replace cached GIFs
+	function getNewGIFs() {
+		return new Promise(function(resolve, reject) {
+			// get new gifs from API
 			XHR.makeRequest("GET", settings.url)
 			.catch(err => {
 				// error response from api
@@ -84,7 +93,7 @@ var MultiGIF = (function() {
 				return Array.from(response.data);
 			})
 			.then(gifs => {
-				Store.setLocal("GIFs", gifs, 60 * 20 * 1000);
+				Store.setLocal("GIFs", gifs, 20 * 60 * 1000);
 				return resolve(gifs);
 			})
 		});

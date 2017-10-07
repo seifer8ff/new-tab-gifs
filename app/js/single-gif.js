@@ -7,39 +7,55 @@ var SingleGIF =  (function() {
 	function init(url) {
 		settings.url = url;
 
-		if (localStorage.getItem("GIFs")) {
-			if (!Store.isExpired("GIFs")) {
-				var gifs = Store.getLocal("GIFs");
-				var randGIF = gifs[Math.floor(Math.random() * gifs.length)];
-				return addGIFToBody(randGIF);
-			} else {
-				localStorage.removeItem("GIFs");
-			}
-		} 
-
-		XHR.makeRequest("GET", settings.url)
-		.catch(err => {
-			// error response from api
-			console.log("request error - status: " + err.status);
-			console.log(err);
-		})
-		.then(response => {
-			return JSON.parse(response);
-		})
-		.catch(err => {
-			console.log("error parsing response");
-		})
-		.then(response => {
-			console.log(response);
-			return Array.from(response.data);
-		})
+		getLocalGIFs()
 		.then(gifs => {
-			Store.setLocal("GIFs", gifs, 60 * 60 * 1000);
 			return gifs[Math.floor(Math.random() * gifs.length)];
 		})
-		.then(gif => {
-			return addGIFToBody(gif);
-		})
+		.then(gif => addGIFToBody(gif))
+	}
+
+	// get cached GIFs
+	function getLocalGIFs() {
+		return new Promise(function(resolve, reject) {
+			if (localStorage.getItem("GIFs")) {
+				if (!Store.isExpired("GIFs")) {
+					return resolve(Store.getLocal("GIFs"));
+				} else {
+					getNewGIFs();
+					return resolve(Store.getLocal("GIFs"));
+				}
+			} 
+
+			// only make an api request if gifs in localStorage are expired
+			return resolve(getNewGIFs());
+		});
+	}
+
+	// request latest GIFs from API and replace cached GIFs
+	function getNewGIFs() {
+		return new Promise(function(resolve, reject) {
+			// get new gifs from API
+			XHR.makeRequest("GET", settings.url)
+			.catch(err => {
+				// error response from api
+				console.log("request error - status: " + err.status);
+				console.log(err);
+			})
+			.then(response => {
+				return JSON.parse(response);
+			})
+			.catch(err => {
+				console.log("error parsing response");
+			})
+			.then(response => {
+				console.log(response);
+				return Array.from(response.data);
+			})
+			.then(gifs => {
+				Store.setLocal("GIFs", gifs, 60 * 60 * 1000);
+				return resolve(gifs[Math.floor(Math.random() * gifs.length)]);
+			})
+		});
 	}
 
 	function addGIFToBody(gif) {

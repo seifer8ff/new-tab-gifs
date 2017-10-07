@@ -53,7 +53,7 @@ var SingleGIF =  (function() {
 			})
 			.then(gifs => {
 				Store.setLocal("GIFs", gifs, 60 * 60 * 1000);
-				return resolve(gifs[Math.floor(Math.random() * gifs.length)]);
+				return resolve(gifs);
 			})
 		});
 	}
